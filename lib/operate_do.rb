@@ -102,7 +102,7 @@ module OperateDo
 
     def push_operator(operator)
       Thread.current[OPERATE_DO_KEY] ||= OperateDo::Recorder.new
-      Thread.current[OPERATE_DO_KEY].push_operator operate
+      Thread.current[OPERATE_DO_KEY].push_operator operator
     end
 
     def pop_operator
@@ -118,7 +118,7 @@ module OperateDo
     end
 
     def write(message, operate_at = Time.now)
-      Thread.current[OPERATE_DO_KEY].write(messaage, operate_at)
+      Thread.current[OPERATE_DO_KEY].write(message, operate_at)
     end
   end
 
