@@ -20,9 +20,9 @@ module OperateDo
 
 
   class Logger
-    def initializer(logger_instance = ::Logger.new)
-      logger_insance ||= ::Logger.new
-      @logger_insance = logger_instance
+    def initialize(logger_instance = ::Logger.new(STDOUT))
+      logger_insance ||= ::Logger.new(STDOUT)
+      @logger_instance = logger_instance
     end
 
     def flush!(messages)
