@@ -122,6 +122,24 @@ module OperateDo
     end
   end
 
+  class OperateProxy
+    def initialize(operator)
+      @operator = operator
+    end
+
+    private
+
+    def method_missing(method_name, *args)
+      ret_val = nil
+
+      @operator.operate do
+        ret_val = @operator.__send__(method_name, *args)
+      end
+
+      ret_val
+    end
+  end
+
   module Operator
     def operate
       OperateDo.push_operator self
@@ -132,6 +150,10 @@ module OperateDo
         OperateDo.pop_operator
         OperateDo.flush_message! unless OperateDo.current_operator
       end
+    end
+
+    def self_operate
+      OperateDo::OperateProxy.new(self)
     end
 
     def operate_inspect
