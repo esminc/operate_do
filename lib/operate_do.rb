@@ -113,7 +113,7 @@ module OperateDo
     end
   end
 
-  module Operatoer
+  module Operator
     def operate
       OperateDo.push_operator self
 
