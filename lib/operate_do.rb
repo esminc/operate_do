@@ -110,7 +110,7 @@ module OperateDo
     end
 
     def current_operator
-      Thread.current[OPERATE_DO_KEY].current_operator
+      Thread.current[OPERATE_DO_KEY]&.current_operator
     end
 
     def flush_message!
