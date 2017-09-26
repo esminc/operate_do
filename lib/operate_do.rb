@@ -84,7 +84,7 @@ module OperateDo
   class << self
     def configure
       @config ||= OperateDo::Config.new
-      yield @Config
+      yield @Config if block_given?
     end
 
     def current_logger
