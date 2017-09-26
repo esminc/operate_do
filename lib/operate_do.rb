@@ -34,7 +34,7 @@ module OperateDo
     def build_message(message)
       [
         message.operate_at.strftime('%Y/%m/%d/ %H:%M:%S'),
-        "#{message.operator.operate_inspect} is operate : #{message.message}"
+        "#{message.operator.operate_inspect} has operated : #{message.message}"
       ].join(" - ")
     end
 
