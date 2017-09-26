@@ -129,11 +129,11 @@ module OperateDo
 
     private
 
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args, &block)
       ret_val = nil
 
       @operator.operate do
-        ret_val = @operator.__send__(method_name, *args)
+        ret_val = @operator.__send__(method_name, *args, &block)
       end
 
       ret_val
