@@ -33,9 +33,9 @@ module OperateDo
 
     def build_message(message)
       [
-        message.operate_at.strftime('%Y%m%d%H%M%S'),
+        message.operate_at.strftime('%Y/%m/%d/ %H:%M:%S'),
         "#{message.operator.operate_inspect} is operate : #{message.message}"
-      ].join("\t")
+      ].join(" - ")
     end
 
     def log_level
