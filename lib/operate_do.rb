@@ -133,5 +133,9 @@ module OperateDo
         OperateDo.flush_message! unless OperateDo.current_operator
       end
     end
+
+    def operate_inspect
+      inspect
+    end
   end
 end
