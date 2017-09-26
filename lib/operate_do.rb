@@ -60,15 +60,15 @@ module OperateDo
     end
 
     def push_operator(operator)
-      @operator.push operator
+      @operators.push operator
     end
 
     def pop_operator
-      @operator.pop
+      @operators.pop
     end
 
     def current_operator
-      @operator.last
+      @operators.last
     end
 
     def write(message, operate_at = Time.now)
