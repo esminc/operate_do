@@ -127,6 +127,7 @@ module OperateDo
       @operator = operator
     end
 
+
     private
 
     def method_missing(method_name, *args, &block)
@@ -137,6 +138,10 @@ module OperateDo
       end
 
       ret_val
+    end
+
+    def respond_to_missing?(symbol, include_private)
+      @operator.__send__(:respond_to_missing?, symbol, include_private)
     end
   end
 
