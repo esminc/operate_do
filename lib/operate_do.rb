@@ -88,7 +88,16 @@ module OperateDo
     end
 
     def current_logger
-      @current_logger ||= @config.logger_class.new(@configure.logger_initialize_proc.call)
+      configure unless @config
+      @current_logger ||= setup_logger
+    end
+
+    private def setup_logger
+      if @config.logger_initialize_proc
+        @config.logger_class.new(@config.logger_initialize_proc.call)
+      else
+        @config.logger_class.new
+      end
     end
 
     def push_operator(operator)
