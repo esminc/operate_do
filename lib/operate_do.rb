@@ -39,7 +39,7 @@ module OperateDo
     end
 
     def log_level
-      :info
+      ::Logger::INFO
     end
   end
 
