@@ -34,7 +34,7 @@ module OperateDo
     def build_message(message)
       [
         message.operate_at.strftime('%Y/%m/%d/ %H:%M:%S'),
-        "#{message.operator.operate_inspect} is operate : #{message.message}"
+        "#{message.operator.operate_inspect} has operated : #{message.message}"
       ].join(" - ")
     end
 
@@ -127,16 +127,21 @@ module OperateDo
       @operator = operator
     end
 
+
     private
 
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *args, &block)
       ret_val = nil
 
       @operator.operate do
-        ret_val = @operator.__send__(method_name, *args)
+        ret_val = @operator.__send__(method_name, *args, &block)
       end
 
       ret_val
+    end
+
+    def respond_to_missing?(symbol, include_private)
+      @operator.__send__(:respond_to_missing?, symbol, include_private)
     end
   end
 
