@@ -12,8 +12,11 @@ module OperateDo
       @logger_initialize_proc = nil
     end
 
-    def logger=(logger_class, initialize_proc = nil)
+    def logger=(logger_class)
       @logger_class = logger_class
+    end
+
+    def logger_initialize_proc=(initialize_proc)
       @logger_initialize_proc = initialize_proc
     end
   end
