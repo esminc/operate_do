@@ -1,6 +1,7 @@
 # OperateDo
 
-OperateDo provide current operator in context.
+PerateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
+
 
 ## Installation
 
@@ -20,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-First, operatable class includes `OperateDo::Operator`.
+First, include OperateDo::Operator into the class which represents a operator.
 
 ```ruby
 class Admin
@@ -30,7 +31,9 @@ end
 
 `OperateDo::Operator` provides `operate` and `self_operate` methods.
 
-`operate` methods accept block. `OperateDo.current_operator` is `operate` method reciver in block.
+`operate` methods accept block. `OperateDo.current_operator` is `operate` method reciver takes a block.
+
+While the block is being executed, `OperateDo.current_operator` returns current operator, the receiver of this method calling.
 
 ```ruby
 admin = Admin.new # => #<Admin:0x007ff02b235cf8>
@@ -40,7 +43,10 @@ admin.operate do
 end
 ```
 
+Since it's a thread-local, you can get it in everywhere. For example, when you call `admin.operate do...` in the rails' controller layer then you can get the `OperateDo.current_operator` from the model layer.
+
 `operate` method can nest.
+Of cource, `operate` can be nested, like nested transactions.
 
 ```ruby
 admin1 = Admin.new
@@ -55,22 +61,23 @@ admin1.operate do
 end
 ```
 
-If you logging with operator, you can use `Operate.write` method.
+OperateDo has a flexible logging mechanism. If you logging with operator, you can use `OperateDo.write` method.
 
 ```ruby
 admin.operate do
-  OperateDo.write 'call in admin blcok'
+  OperateDo.write 'a resource is being modified'
 end
 
 # => I, [2017-10-04T07:13:15.713900 #21515]  INFO -- : 2017/10/04/ 07:13:15 - #<Admin:0x007ff02b235cf8> has operated : call in admin blcok
 ```
 
-`OperateDo.write` uses `OperateDo::Logger` by default. `OperateDo::Logger` is wrap Ruby's Logger.
+`OperateDo.write` uses `OperateDo::Logger` is a wrapper of Ruby's Logger by default.
 
 You can create your custome logger and use it by setting.
 
 Your custome logger class expect and implements `flush!` method.
 `flush!` method recive array of `OperateDo::Message`.
+A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
 ```ruby
 class StringIOLogger
@@ -89,7 +96,7 @@ class StringIOLogger
 end
 ```
 
-And, set `OperateDo.configure`.
+And then, set `OperateDo.configure`.
 
 ```ruby
 logger_string = StringIO.new
@@ -103,7 +110,7 @@ admin.operate do
 end
 
 logger_string.rewind
-logger_string.read # => 2017/10/04/ 07:47:57 - #<Admin:0x007f9f6695cc40> has operated : call in admin blcok
+logger_string.read # => 2017/10/04/ 07:47:57 - #<Admin:0x007f9f6695cc40> has operated : a resource is being modified
 ```
 
 ## Development
