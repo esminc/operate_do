@@ -1,6 +1,6 @@
 # OperateDo
 
-PerateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
+OperateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
 
 
 ## Installation
@@ -31,9 +31,7 @@ end
 
 `OperateDo::Operator` provides `operate` and `self_operate` methods.
 
-`operate` methods accept block. `OperateDo.current_operator` is `operate` method reciver takes a block.
-
-While the block is being executed, `OperateDo.current_operator` returns current operator, the receiver of this method calling.
+`operate` method takes a block. While the block is being executed, `OperateDo.current_operator` returns current operator, the receiver of this method calling.
 
 ```ruby
 admin = Admin.new # => #<Admin:0x007ff02b235cf8>
@@ -45,8 +43,7 @@ end
 
 Since it's a thread-local, you can get it in everywhere. For example, when you call `admin.operate do...` in the rails' controller layer then you can get the `OperateDo.current_operator` from the model layer.
 
-`operate` method can nest.
-Of cource, `operate` can be nested, like nested transactions.
+`operate` can be nested, like nested transactions.
 
 ```ruby
 admin1 = Admin.new
@@ -68,12 +65,12 @@ admin.operate do
   OperateDo.write 'a resource is being modified'
 end
 
-# => I, [2017-10-04T07:13:15.713900 #21515]  INFO -- : 2017/10/04/ 07:13:15 - #<Admin:0x007ff02b235cf8> has operated : call in admin blcok
+# => I, [2017-10-04T07:13:15.713900 #21515]  INFO -- : 2017/10/04/ 07:13:15 - #<Admin:0x007ff02b235cf8> has operated : a resource is being modified
 ```
 
 `OperateDo.write` uses `OperateDo::Logger` is a wrapper of Ruby's Logger by default.
 
-You can create your custome logger and use it by setting.
+You can create your custome logger and use it by setting. A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
 Your custome logger class expect and implements `flush!` method.
 `flush!` method recive array of `OperateDo::Message`.
