@@ -1,7 +1,6 @@
 # OperateDo
 
-OperateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
-
+OperateDo provides a simple way to share the operator (such as `current_user`) of a transaction across different layers.
 
 ## Installation
 
