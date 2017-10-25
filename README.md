@@ -1,6 +1,6 @@
 # OperateDo
 
-PerateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
+OperateDo provides a simple way to manage thread-local variable which represents the operator of a transaction.
 
 
 ## Installation
@@ -31,7 +31,7 @@ end
 
 `OperateDo::Operator` provides `operate` and `self_operate` methods.
 
-`operate` methods accept block. `OperateDo.current_operator` is `operate` method reciver takes a block.
+`operate` methods accept block. `OperateDo.current_operator` is `operate` method receiver takes a block.
 
 While the block is being executed, `OperateDo.current_operator` returns current operator, the receiver of this method calling.
 
@@ -73,10 +73,10 @@ end
 
 `OperateDo.write` uses `OperateDo::Logger` is a wrapper of Ruby's Logger by default.
 
-You can create your custome logger and use it by setting.
+You can create your custom logger and use it by setting.
 
-Your custome logger class expect and implements `flush!` method.
-`flush!` method recive array of `OperateDo::Message`.
+Your custom logger class expect and implements `flush!` method.
+`flush!` method receive array of `OperateDo::Message`.
 A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
 ```ruby
