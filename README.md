@@ -33,7 +33,7 @@ end
 
 `operate` methods accept block. `OperateDo.current_operator` is `operate` method reciver takes a block.
 
-While the block is being executed, `OperateDo.current_operator` returns current operator, the receiver of this method calling.
+While the block is being executed, `OperateDo.current_operator` returns the current operator, the receiver of this method calling.
 
 ```ruby
 admin = Admin.new # => #<Admin:0x007ff02b235cf8>
@@ -43,7 +43,7 @@ admin.operate do
 end
 ```
 
-Since it's a thread-local, you can get it in everywhere. For example, when you call `admin.operate do...` in the rails' controller layer then you can get the `OperateDo.current_operator` from the model layer.
+Since it's a thread-local, you can get it everywhere. For example, when you call `admin.operate do...` in the Rails' controller layer then you can get the `OperateDo.current_operator` from the model layer.
 
 `operate` method can nest.
 Of cource, `operate` can be nested, like nested transactions.
@@ -61,7 +61,7 @@ admin1.operate do
 end
 ```
 
-OperateDo has a flexible logging mechanism. If you logging with operator, you can use `OperateDo.write` method.
+OperateDo has a flexible logging mechanism. If you log a message with the operator, you can use `OperateDo.write` method.
 
 ```ruby
 admin.operate do
@@ -71,12 +71,12 @@ end
 # => I, [2017-10-04T07:13:15.713900 #21515]  INFO -- : 2017/10/04/ 07:13:15 - #<Admin:0x007ff02b235cf8> has operated : call in admin blcok
 ```
 
-`OperateDo.write` uses `OperateDo::Logger` is a wrapper of Ruby's Logger by default.
+`OperateDo.write` uses `OperateDo::Logger` which is a wrapper of Ruby's Logger by default.
 
 You can create your custome logger and use it by setting.
 
 Your custome logger class expect and implements `flush!` method.
-`flush!` method recive array of `OperateDo::Message`.
+`flush!` method recive an array of `OperateDo::Message`.
 A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
 ```ruby
