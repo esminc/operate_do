@@ -69,10 +69,10 @@ end
 
 `OperateDo.write` uses `OperateDo::Logger` is a wrapper of Ruby's Logger by default.
 
-You can create your custome logger and use it by setting. A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
+You can create your custom logger and use it by setting. A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
-Your custome logger class expect and implements `flush!` method.
-`flush!` method recive array of `OperateDo::Message`.
+Your custom logger class expect and implements `flush!` method.
+`flush!` method receive array of `OperateDo::Message`.
 A logger class is expected to implement `flush!` method. This method receives an array of `OperateDo::Message`.
 
 ```ruby
