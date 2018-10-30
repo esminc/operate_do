@@ -102,7 +102,7 @@ OperateDo.configure do |config|
   config.logger_initialize_proc = -> { logger_string }
 end
 admin.operate do
-  OperateDo.write 'call in admin blcok'
+  OperateDo.write 'call in admin block'
 end
 
 logger_string.rewind
